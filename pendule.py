@@ -25,7 +25,6 @@ cycles = 0
 nb_periodes = 0
 nb_periodes_total = 10
 
-
 while nb_periodes <= nb_periodes_total:
     led[0] = (0, 0, 0)
     debut = 0
@@ -35,15 +34,17 @@ while nb_periodes <= nb_periodes_total:
         led[0] = (0, 255, 0)
         if debut == 0:
             debut = time.monotonic()
-            print((plot*2,))
-
+            #print((plot*2,))
+            #print((analog_in.value),)
+        print(analog_in.value)
     fin = time.monotonic()
 
     if debut != 0:
         
         if cycles % 2 == 0:
             nb_periodes = nb_periodes + 1
-            clock = debut + (fin-debut)/2
+            #clock = debut + (fin-debut)/2
+            clock = debut
             if Ti == 0:
                 Ti = clock
 
@@ -54,7 +55,8 @@ while nb_periodes <= nb_periodes_total:
 
     led[0] = (0, 0, 0)
 
-    print((plot,))
+    #print((plot,))
+    print(analog_in.value)
     time.sleep(0.02)
 
 print('')
@@ -63,5 +65,5 @@ print('= Temps total :', Tf - Ti, 's')
 print('= Nombre de periode :', nb_periodes_total)
 print('= Periode :', (Tf - Ti) / nb_periodes_total,'s')
 print('================================')
-#l = (T**2 * 9.81) / (4*math.pi**2)
-#print('Longueur du fil : ',l,'m')
+l = (((Tf - Ti) / nb_periodes_total)**2 * 9.81) / (4*math.pi**2)
+print('Longueur du fil : ',l,'m')
